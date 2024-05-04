@@ -10,5 +10,14 @@
             <field name="company_id" eval="False"/>
         </record>
 
+        <record id="meera_customer_sequence_id" model="ir.sequence">
+            <field name="name">Meera Traders Customer</field>
+            <field name="code">meera.trader.customer.sequence</field>
+            <field name="prefix">MTRC</field>
+            <field name="number_next">1</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
     </data>
 </odoo>

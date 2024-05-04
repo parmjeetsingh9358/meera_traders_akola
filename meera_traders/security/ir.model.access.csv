@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-meera_traders,meera.traders,model_meera_traders,base.group_user,1,1,1,1
+meera_traders,meera.traders,model_meera_traders,,1,1,1,1
 meera_traders_line,meera.traders.line,model_meera_traders_line,,1,1,1,1
+meera_traders_customer,meera.traders.customer,model_meera_traders_customer,,1,1,1,1
+meera_trader_product,meera.trader.product,model_meera_trader_product,,1,1,1,1

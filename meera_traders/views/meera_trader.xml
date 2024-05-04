@@ -8,6 +8,8 @@
             <field name="arch" type="xml">
                 <tree string="Meera Traders">
                     <field name="name" string="Name"/>
+                    <field name="date" string="Date"/>
+                    <field name="state" string="state"/>
                 </tree>
             </field>
         </record>
@@ -20,6 +22,11 @@
             <field name="model">meera.traders</field>
             <field name="arch" type="xml">
                 <form string="Meera Traders">
+                    <header>
+                        <button name="set_to_done" string="Done" type="object" states="draft" class="oe_highlight"/>
+                        <button name="set_to_drat" string="Reset" type="object" states="done" class="oe_highlight"/>
+                        <field name="state" nolabel="1" widget="statusbar"/>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -28,22 +35,22 @@
                         </div>
                         <group>
                             <group>
-                                <field name="partner_id" string="Name" placeholder="Name"/>
-                                <label for="street" string="Address"/>
-                                <div class="o_address_format">
-                                    <field name="street" class="o_address_street" placeholder="Street..."/>
-                                    <field name="street2" class="o_address_street" placeholder="Street2..."/>
-                                    <field name="city" class="o_address_city" placeholder="City" required="1"/>
-                                    <field name="state_id" class="o_address_state"
-                                           placeholder="State" options="{&quot;no_open&quot;: true}"/>
-                                    <field name="zip" class="o_address_zip" placeholder="ZIP"/>
-                                    <field name="country_id" class="o_address_city,oe_no_button" placeholder="Country"
-                                           options="{&quot;no_open&quot;: true}"/>
-                                </div>
+                                <field name="date"/>
                             </group>
                             <group>
-                                <field name="mobile"/>
-                                <field name="email"/>
+                                <field name="company_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Dealer Details">
+                                <field name="dealer_id" domain="[('customer_type','=','dealer')]"/>
+                                <field name="dealer_mobile"/>
+                                <field name="dealer_address"/>
+                            </group>
+                            <group string="Seller Details">
+                                <field name="seller_id" domain="[('customer_type','=','seller')]"/>
+                                <field name="seller_mobile"/>
+                                <field name="seller_address"/>
                             </group>
                         </group>
                         <notebook colspan="4">
@@ -52,15 +59,27 @@
                                     <tree editable="bottom">
                                         <field name="meera_trader_id" invisible="1"/>
                                         <field name="product_id"/>
+                                        <field name="product_notes"/>
                                         <field name="qty"/>
-                                        <field name="price"/>
                                         <field name="commission_rate"/>
                                         <field name="total_commission_rate"/>
                                     </tree>
                                 </field>
                             </page>
                         </notebook>
+                        <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group colspan="4">
+                                <field colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="total_amount">
+                                <field name="total_amount" widget="account-tax-totals-field" colspan="2"
+                                       readonly="1"/>
+                            </group>
+                            <div class="clearfix"/>
+                        </group>
+
                     </sheet>
+
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="activity_ids" widget="mail_activity"/>
@@ -70,6 +89,8 @@
             </field>
         </record>
 
+        <!-- actions opening Server on models -->
+
 
         <record model="ir.actions.act_window" id="meera_trader_server_action_id">
             <field name="name">Meera Traders</field>
@@ -77,8 +98,7 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Create new student
-                </p>
+                <p class="oe_view_nocontent_create">Create new Meera Traders</p>
             </field>
         </record>
 

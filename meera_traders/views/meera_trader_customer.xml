@@ -1,0 +1,92 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record id="view_meera_traders_customer_tree" model="ir.ui.view">
+            <field name="name">meera.traders.customer.tree</field>
+            <field name="model">meera.traders.customer</field>
+            <field name="arch" type="xml">
+                <tree string="Meera Traders Customer">
+                    <field name="serial_no" string="Customer ID"/>
+                    <field name="name" string="Name"/>
+                    <field name="mobile" string="mobile"/>
+                    <field name="city" string="City"/>
+                    <field name="customer_type" string="Customer Type"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record id="view_meera_traders_customer_form" model="ir.ui.view">
+            <field name="name">meera.traders.customer.form</field>
+            <field name="model">meera.traders.customer</field>
+            <field name="arch" type="xml">
+                <form string="Meera Traders Customer">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="serial_no" placeholder="Name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="customer_type" widget='radio' options="{'horizontal': true}"/>
+                            <group>
+                                <field name="name" string="Name" placeholder="Name"/>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="street" class="o_address_street" placeholder="Street..."/>
+                                    <field name="street2" class="o_address_street" placeholder="Street2..."/>
+                                    <field name="city" class="o_address_city" placeholder="City" required="1"/>
+                                    <field name="state_id" class="o_address_state"
+                                           placeholder="State" options="{&quot;no_open&quot;: true}"/>
+                                    <field name="zip" class="o_address_zip" placeholder="ZIP"/>
+                                    <field name="country_id" class="o_address_city,oe_no_button" placeholder="Country"
+                                           options="{&quot;no_open&quot;: true}"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="mobile"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- actions Search view on models -->
+
+        <record id="view_meera_traders_customer_search" model="ir.ui.view">
+            <field name="name">meera.traders.customer.search</field>
+            <field name="model">meera.traders.customer</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="serial_no"/>
+                    <field name="name"/>
+                    <field name="city"/>
+                    <field name="customer_type"/>
+                    <group expand="0" string="Group By">
+                        <filter string="City" name="city" context="{'group_by': 'city'}"/>
+                        <filter string="Customer Type" name="customer_type" context="{'group_by': 'customer_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- actions opening Server on models -->
+
+        <record model="ir.actions.act_window" id="meera_trader_customer_action_id">
+            <field name="name">Meera Traders Customer</field>
+            <field name="res_model">meera.traders.customer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Meera Traders Customer</p>
+            </field>
+        </record>
+
+        <menuitem id="parent_menu_meera_trader_customer" name="Customer" parent="meera_traders.menu_meera_trader"
+                  action="meera_trader_customer_action_id" sequence="2"/>
+
+
+    </data>
+</odoo>
